@@ -173,7 +173,8 @@ class OptimisationSolver:
         gamma : float, optional
             The momentum coefficient for the momentum method algorithm. Defaults to 0.4.
         max_iter : int, optional
-            The maximum number of iterations for the momentum method algorithm. Defaults to 1000.
+            The maximum number of iterations for the momentum method algorithm. Make sure to set this to a very low value 
+            if the function is not converging. 
         tol : float, optional
             The tolerance for the convergence of the momentum method algorithm. Defaults to 1e-6.
 
