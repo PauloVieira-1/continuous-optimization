@@ -1,0 +1,21 @@
+import optimisation_solver as ops
+import functions as fns
+
+def main():
+
+    solver = ops.OptimisationSolver(fns.rosenbrock, num_vars=2)
+    solver.gradient_descent(initial_guess=[1.4, 1.4], learning_rate=0.001)
+
+
+
+if __name__ == "__main__":
+    main()
+
+
+'''
+Example Usage:
+
+    solver = ops.OptimisationSolver(fns.rosenbrock, num_vars=2)
+    solver.gradient_descent(initial_guess=[1.4, 1.4], learning_rate=0.001)
+
+'''
