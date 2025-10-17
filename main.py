@@ -31,7 +31,7 @@ def main():
     # )
 
     solver.plot_optimization_path_2d(
-        "momentum_method",
+        "armijo_method",
         initial_guess=[-1.2, 1.0],
         learning_rate=1e-1,   
         beta=0.5,            

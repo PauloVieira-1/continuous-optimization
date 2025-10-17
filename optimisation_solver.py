@@ -4,6 +4,7 @@ from typing import Callable
 import matplotlib.pyplot as plt
 
 '''
+
 The OptimisationSolver class provides methods for solving optimization problems using various algorithms.
 It supports gradient descent, Armijo method, and momentum-based optimization.
 
@@ -15,7 +16,12 @@ For more information on "sympy", see: https://www.sympy.org/en/index.html
 
 
 Other Sources:
-    - 
+    - https://induraj2020.medium.com/implementing-gradient-descent-in-python-d1c6aeb9a448 ----> used for basic structure of gradient descent method
+    - https://en.wikipedia.org/wiki/Armijo_condition ----> used for understanding Armijo method
+    - https://towardsdatascience.com/understanding-momentum-in-gradient-descent-5a3d2f0bca6e ----> used for understanding momentum method
+    - https://matplotlib.org/stable/gallery/images_contours_and_fields/contourf_demo.html ----> used for contour plot in 2D visualization method (see plot_optimization_path_2d method)
+    - https://www.youtube.com/watch?v=gsfbWn4Gy5Q ----> used for aspects of general implementation of gradient descent (specifically understanding meshgrid)
+    - https://python.plainenglish.io/how-is-symbolic-differentiation-done-in-python-using-sympy-6484554f25b0 ----> used for understanding symbolic differentiation with sympy (and what is means)
 
 
 '''
@@ -44,7 +50,7 @@ class OptimisationSolver:
         x_syms = sy.symbols(f'x0:{self.num_vars}') 
         f_sym = self.objective_function(*x_syms) 
         gradient_syms = [sy.diff(f_sym, var) for var in x_syms]
-        self.gradient_function = sy.lambdify(x_syms, gradient_syms, 'numpy') # Convert to numpy-compatible function ( otherwise sympy objects are returned which are not compatible with numpy operations )
+        self.gradient_function = sy.lambdify(x_syms, gradient_syms, 'numpy') # Convert to numpy-compatible function
 
     def gradient(self, x: np.ndarray) -> np.ndarray:
         """
@@ -100,7 +106,8 @@ class OptimisationSolver:
     
         x_k: np.ndarray = np.array(initial_guess, dtype=float)
         history: list = [self.objective_function(*x_k)]
-        path = [x_k.copy()] # coppied to avoid reference issues (error occurs where all elements in path point to same memory location)
+        
+        path = [x_k]
 
         for i in range(max_iterations):
            
@@ -165,7 +172,7 @@ class OptimisationSolver:
 
         x_k = np.array(initial_guess, dtype=float)
         history = [self.objective_function(*x_k)] # used to store objective function values for plotting convergence later (see graph_convergence method and plot_optimization_path_2d method)
-        path = [x_k.copy()]
+        path = [x_k]
 
         for i in range(max_iterations):
             gradient_k = self.gradient(x_k)
@@ -258,7 +265,8 @@ class OptimisationSolver:
         x_k = np.array(initial_guess, dtype=float)
         x_k_prev = np.array(initial_guess, dtype=float)
 
-        path = [x_k.copy()]  
+        path = [x_k]  
+
         history = [self.objective_function(*x_k)]  
 
         for k in range(max_iterations):
@@ -415,6 +423,19 @@ class OptimisationSolver:
         x_vals = np.linspace(path[:, 0].min() - 1, path[:, 0].max() + 1, 200)
         y_vals = np.linspace(path[:, 1].min() - 1, path[:, 1].max() + 1, 200)
         X, Y = np.meshgrid(x_vals, y_vals)
+        
+        '''
+            x = np.array([0, 1, 2])
+            y = np.array([10, 20])
+
+            after np.meshgrid(x, y):
+            X = [[ 0  1  2]
+                 [ 0  1  2]]
+            Y = [[10 10 10]
+                 [20 20 20]]
+
+        '''
+
         Z = np.vectorize(lambda x, y: self.objective_function(x, y))(X, Y)
 
         # AI GENERATED ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
@@ -425,7 +446,9 @@ class OptimisationSolver:
 
     
         # AI GENERATED ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+
         plt.plot(path[:, 0], path[:, 1], "r.-", label=f"{method.replace('_', ' ').title()} Path")
+
         # AI GENERATED ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
         
         
