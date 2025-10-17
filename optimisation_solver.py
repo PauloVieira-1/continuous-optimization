@@ -22,6 +22,8 @@ Other Sources:
     - https://matplotlib.org/stable/gallery/images_contours_and_fields/contourf_demo.html ----> used for contour plot in 2D visualization method (see plot_optimization_path_2d method)
     - https://www.youtube.com/watch?v=gsfbWn4Gy5Q ----> used for aspects of general implementation of gradient descent (specifically understanding meshgrid)
     - https://python.plainenglish.io/how-is-symbolic-differentiation-done-in-python-using-sympy-6484554f25b0 ----> used for understanding symbolic differentiation with sympy (and what is means)
+    - https://www.youtube.com/watch?v=Souzjv6WfrY ----> used for general understanding + implementation 
+
 
 
 '''
