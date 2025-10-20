@@ -174,7 +174,7 @@ class OptimisationSolver:
 
         x_k = np.array(initial_guess, dtype=float)
         history = [self.objective_function(*x_k)] # used to store objective function values for plotting convergence later (see graph_convergence method and plot_optimization_path_2d method)
-        path = [x_k]
+        path = [x_k] 
 
         for i in range(max_iterations):
             gradient_k = self.gradient(x_k)
@@ -198,7 +198,7 @@ class OptimisationSolver:
                 eta = learning_rate * (beta ** n_k)
 
             x_next = x_k - eta * gradient_k
-            history.append(self.objective_function(*x_next))
+            history.append(self.objective_function(*x_next)) 
 
             if np.linalg.norm(x_next - x_k) < tol:
                 print("\n----------------------------------------------")
@@ -273,7 +273,7 @@ class OptimisationSolver:
 
         for k in range(max_iterations):
             gradient_k = self.gradient(x_k)
-            gradient_k = np.clip(gradient_k, -100, 100)  # Prevent gradient explosion at edges (helps with complex functions like Rosenbrock which was used iin testing)
+            gradient_k = np.clip(gradient_k, -100, 100)  # Prevent gradient explosion at edges (helps with complex functions like Rosenbrock which was used in testing)
 
             x_k_next = x_k - learning_rate * gradient_k + gamma * (x_k - x_k_prev)
 
@@ -282,7 +282,7 @@ class OptimisationSolver:
             history.append(self.objective_function(*x_k_next))
 
             if np.linalg.norm(x_k_next - x_k) > np.linalg.norm(x_k - x_k_prev):
-                learning_rate *= 0.8 # Decrease learning rate slightly if not converging
+                learning_rate *= 0.85 # Decrease learning rate slightly if not converging
             else:
                 learning_rate *= 1.001 # Slightly increase learning rate if converging
 
